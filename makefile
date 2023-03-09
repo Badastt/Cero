@@ -1,5 +1,5 @@
 all: aux.o
-	gcc -Wall -Werror -O2 -std=c99 src/main.c aux.o -o exe
+	gcc -Wall -Werror -O2 -std=c99 src/master.c aux.o -o exe
 	rm *.o
 
 aux.o: lib/aux.h
