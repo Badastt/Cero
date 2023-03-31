@@ -5,8 +5,8 @@
 #include "baralho.h"
 #include "types.h"
 
-stack *initializeStack(int size){
-	stack *s = (stack*)malloc(sizeof(stack));
+pilha *inicializarPilha(int size){
+	pilha *s = (pilha*)malloc(sizeof(pilha));
 	T *t = (T*)malloc(sizeof(T)*size);
 	
 	s->itens = t; 
@@ -14,8 +14,8 @@ stack *initializeStack(int size){
 	return s;
 }
 
-void pushStack (stack *s, T element){
-	if (full (s)){
+void adicionarPilha (pilha *s, T element){
+	if (fullStack (s)){
 		printf ("PILHA CHEIA");
 		return;
 	}
@@ -23,8 +23,8 @@ void pushStack (stack *s, T element){
 	s->itens[s->top] = element;
 }
 
-T popStack (stack *s){
-	if (empty (s)){
+T removerPilha (pilha *s){
+	if (emptyStack (s)){
 		printf ("PILHA VAZIA");
 		return ERROR;
 	}
@@ -34,13 +34,13 @@ T popStack (stack *s){
 	return element;
 }
 
-int empty (stack *s){
+int emptyStack (pilha *s){
 	if (s->top == -1)
 		return 1;
 	return 0;
 }
 
-int full (stack *s){
+int fullStack (pilha *s){
 	if (s->top == MAX-1)
 		return 1;
 	return 0;

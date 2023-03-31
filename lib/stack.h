@@ -1,5 +1,5 @@
-#ifndef WIP
-#define WIP
+#ifndef STACK
+#define STACK
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,10 +7,10 @@
 #include "baralho.h"
 #include "types.h"
 
-stack *initializeStack(int);
-void pushStack (stack *, T);
-T popStack (stack *);
-int empty (stack *);
-int full (stack *);
+pilha *inicializarPilha(int);
+void adicionarPilha (pilha *, T);
+T removerPilha (pilha *);
+int emptyStack (pilha *);
+int fullStack (pilha *);
 
 #endif

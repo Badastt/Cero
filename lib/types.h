@@ -20,6 +20,37 @@ typedef carta T;
 typedef struct {
 	T *itens;
 	int top;
-} stack;
+} pilha;
+
+struct  nodeFila {
+	T item;
+	struct nodeFila *proximo;
+};
+	
+typedef struct nodeFila nodeFila;
+
+typedef struct {
+	nodeFila *inicio;
+	nodeFila *fim;
+	unsigned quantidade;
+} fila;
+
+struct nodeLista {
+	T item;
+	struct nodeLista *proximo, *anterior;
+};
+
+typedef struct nodeLista nodeLista;
+
+typedef struct {
+	nodeLista *sentinela;
+	unsigned quantidade;
+} lista;
+
+typedef struct {
+	nodeLista *posicao;
+	lista *lista;
+} iteradorLista;
+
 
 #endif
