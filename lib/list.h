@@ -29,4 +29,6 @@ void moverIteradorNumero (iteradorLista *, int);
 
 T elementoLista (iteradorLista *);
 
+void destroiIterador (iteradorLista *);
+
 #endif

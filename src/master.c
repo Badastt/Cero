@@ -49,8 +49,10 @@ int main (int argc, char *argv[]){
 		printf ("\n");
 		
 		moverIteradorNumero (itPlayer1, 1);
-		for (int i = 1; i < quantidadeLista (maoPlayer1)+1; i++, proximoIterador (itPlayer1))
+		for (int i = 1; i < quantidadeLista (maoPlayer1)+1; i++){
 			printCarta (elementoLista(itPlayer1), i);
+			proximoIterador (itPlayer1);
+		}
 		
 		moverIteradorNumero (itPlayer1, 1);
 		if (flag){
@@ -77,6 +79,32 @@ int main (int argc, char *argv[]){
 		if (quantidadeLista (maoPlayer1) == 0){
 			printf ("VOCÊ VENCEU!!\n");
 			acabou = 1;
+			break;
+		}
+		
+		//IA:
+		flag = 0;
+		moverIteradorNumero (itPlayer2, 1);
+		for (int i = 0; i < quantidadeLista (maoPlayer2)+1; i++){
+			flag = verificaJogada (elementoLista(itPlayer2), ultimoLista(baralhoMesa));
+			if (flag){
+				printf ("O seu adversário jogou a carta:\n");
+				printCarta (elementoLista(itPlayer2), 0);
+				printf ("\n\n");
+				jogarCartaIA (itPlayer2, baralhoMesa, i+1);
+				break;
+			}
+			proximoIterador (itPlayer2);
+		}
+		if (!flag){
+			printf ("O seu adversário não tinha nenhuma carta válida então comprou uma carta\n\n\n\n");
+			comprarCartas (maoPlayer2, baralhoCompra, baralhoMesa, 1);
+		}
+		
+		if (quantidadeLista (maoPlayer2) == 0){
+			printf ("VOCÊ PERDEU\n");
+			acabou = 1;
+			break;
 		}
 	}
 	
@@ -85,5 +113,12 @@ int main (int argc, char *argv[]){
 	//	carta item = removerInicioLista(maoPlayer1);
 	//	printf ("%d, %s, %s\n", item.num, returnEnumCor(item.cor), returnEnumTipo(item.tipo));
 	//}
+
+destroiPilha (baralhoCompra);
+destroyQueue (baralhoMesa);
+destroiLista (maoPlayer1);
+destroiLista (maoPlayer2);
+destroiIterador (itPlayer1);
+destroiIterador (itPlayer2);
 
 return 0;}

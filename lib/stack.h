@@ -12,5 +12,6 @@ void adicionarPilha (pilha *, T);
 T removerPilha (pilha *);
 int emptyStack (pilha *);
 int fullStack (pilha *);
+void destroiPilha (pilha *);
 
 #endif

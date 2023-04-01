@@ -43,3 +43,8 @@ int fullStack (pilha *s){
 		return 1;
 	return 0;
 }
+
+void destroiPilha (pilha *p){
+	free (p->itens);
+	free (p);
+}

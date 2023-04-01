@@ -169,3 +169,24 @@ void jogarCarta (iteradorLista *i, fila *f, int num){
 	retira (i);
 	adicionarFila (f, carta);
 }
+
+void jogarCartaIA (iteradorLista *i, fila *f, int num){
+	moverIteradorNumero (i, num);
+	T carta = elementoLista(i);
+	int flag = 0;
+	if (carta.tipo == cartaCompra4 || carta.tipo == cartaMudaCor){
+		moverIteradorNumero (i, 1);
+		for (int j = 0; j < quantidadeLista (i->lista); j++, proximoIterador (i)){
+			flag = verificaJogada (elementoLista(i), ultimoLista(f));
+			if (flag)
+				if (elementoLista(i).cor != preto)
+					carta.cor = elementoLista(i).cor;
+		}
+		if (!flag)
+			carta.cor = rand()%4;
+		printf ("O seu adversário escolheu mudar a cor para %s\n", returnEnumCor(carta.cor)); 
+	}
+	moverIteradorNumero (i, num);
+	retira (i);
+	adicionarFila (f, carta);
+}
