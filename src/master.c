@@ -107,12 +107,6 @@ int main (int argc, char *argv[]){
 			break;
 		}
 	}
-	
-	
-	//for (int i = 0; i < 6; i++){
-	//	carta item = removerInicioLista(maoPlayer1);
-	//	printf ("%d, %s, %s\n", item.num, returnEnumCor(item.cor), returnEnumTipo(item.tipo));
-	//}
 
 destroiPilha (baralhoCompra);
 destroyQueue (baralhoMesa);

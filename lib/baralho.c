@@ -178,9 +178,11 @@ void jogarCartaIA (iteradorLista *i, fila *f, int num){
 		moverIteradorNumero (i, 1);
 		for (int j = 0; j < quantidadeLista (i->lista); j++, proximoIterador (i)){
 			flag = verificaJogada (elementoLista(i), ultimoLista(f));
-			if (flag)
-				if (elementoLista(i).cor != preto)
-					carta.cor = elementoLista(i).cor;
+			if (flag){
+				T verificaCarta = elementoLista(i);
+				if (verificaCarta.cor != preto)
+					carta.cor = verificaCarta.cor;
+			}
 		}
 		if (!flag)
 			carta.cor = rand()%4;

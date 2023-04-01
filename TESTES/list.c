@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include "list.h"
-#include "baralho.h"
 #include "types.h"
 
 lista *inicializarLista(){
