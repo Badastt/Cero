@@ -31,8 +31,8 @@ void adicionarFimLista (lista *l, T data){
 	n->item = data;
 	n->proximo = l->sentinela;
 	n->anterior = l->sentinela->anterior;
-	l->sentinela->proximo = n->anterior->proximo;
 	l->sentinela->anterior = n;
+	n->anterior->proximo = n;
 	l->quantidade++;
 }
 
@@ -77,6 +77,7 @@ iteradorLista *inicializarIterador (lista *l){
 	iteradorLista *i = (iteradorLista*)malloc(sizeof(iteradorLista));
 	i->lista = l;
 	i->posicao = l->sentinela;
+	i->numero = 0;
 	return i;
 }
 
@@ -87,17 +88,41 @@ void adicionarAntes (lista *l, iteradorLista *i, T data){
 }
 
 void proximoIterador (iteradorLista *i){
-	if (i->posicao->proximo == i->lista->sentinela)
-		i->posicao = i->lista->sentinela->proximo;
-	else
+	i->posicao = i->posicao->proximo;
+	if (i->posicao == i->lista->sentinela){
 		i->posicao = i->posicao->proximo;
+		i->numero = 0;
+	}
+	i->numero++;
 }
 
 void anteriorIterador (iteradorLista *i){
-	if (i->posicao->anterior == i->lista->sentinela)
+	if (i->posicao->anterior == i->lista->sentinela){
 		i->posicao = i->lista->sentinela->proximo;
-	else
+		i->numero = quantidadeLista (i->lista);
+	} else {
 		i->posicao = i->posicao->anterior;
+		i->numero--;
+	}
+}
+
+void moverIteradorNumero (iteradorLista *i, int num){
+	if (num <= 0 || num > quantidadeLista (i->lista))
+		return;
+	while (i->numero != num){
+		proximoIterador(i);
+	}
+}
+
+void retira (iteradorLista *i){
+	nodeLista *n = i->posicao;
+	if (vaziaLista (i->lista))
+		return;
+	i->posicao->anterior->proximo = i->posicao->proximo;
+	i->posicao->proximo->anterior = i->posicao->anterior;
+	i->lista->quantidade--;
+	moverIteradorNumero (i, 1);
+	free (n);
 }
 
 T elementoLista (iteradorLista *i){

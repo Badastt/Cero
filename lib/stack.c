@@ -16,7 +16,6 @@ pilha *inicializarPilha(int size){
 
 void adicionarPilha (pilha *s, T element){
 	if (fullStack (s)){
-		printf ("PILHA CHEIA");
 		return;
 	}
 	s->top++;
@@ -25,7 +24,6 @@ void adicionarPilha (pilha *s, T element){
 
 T removerPilha (pilha *s){
 	if (emptyStack (s)){
-		printf ("PILHA VAZIA");
 		return ERROR;
 	}
 	T element = s->itens[s->top];

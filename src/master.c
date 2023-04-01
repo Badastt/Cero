@@ -7,7 +7,7 @@
 #include "../lib/queue.h"
 #include "../lib/baralho.h"
 
-int main (){
+int main (int argc, char *argv[]){
 	pilha *baralhoCompra = inicializarPilha(NUM_CARTAS);
 	fila *baralhoMesa = initializeQueue();
 	
@@ -27,24 +27,53 @@ int main (){
 	
 	primeiraCarta (baralhoCompra, baralhoMesa);
 	
+	int acabou = 0;
 	int flag = 0;
-	for (int i = 0; i < quantidadeLista (maoPlayer1); i++, proximoIterador (itPlayer1)){
-		flag = verificaJogada (elementoLista(itPlayer1), ultimoLista(baralhoMesa));
-		if (flag)
-			break;
+	int posCarta = 0;
+	
+	if (argv[1] == 0)
+	while (1 && !acabou){
+		flag = 0;
+		moverIteradorNumero (itPlayer1, 1);
+		for (int i = 0; i < quantidadeLista (maoPlayer1)+1; i++){
+			flag = verificaJogada (elementoLista(itPlayer1), ultimoLista(baralhoMesa));
+			proximoIterador (itPlayer1);
+			if (flag)
+				break;
+		}
+		
+		printf ("A carta na mesa é a seguinte:\n");
+		printCarta (ultimoLista(baralhoMesa), 0);
+		printf ("\n");
+		
+		moverIteradorNumero (itPlayer1, 1);
+		for (int i = 1; i < quantidadeLista (maoPlayer1)+1; i++, proximoIterador (itPlayer1))
+			printCarta (elementoLista(itPlayer1), i);
+		
+		moverIteradorNumero (itPlayer1, 1);
+		if (flag){
+			printf ("Você têm cartas válidas, qual será a sua jogada?? (Digite o número atrás da carta)\n\n");
+			scanf (" %d", &posCarta);
+			
+			moverIteradorNumero (itPlayer1, posCarta);
+			
+			while (!(verificaJogada(elementoLista(itPlayer1) ,ultimoLista(baralhoMesa)))){
+				printf ("O número digitado é inválido, tente novamente:\n\n");
+				scanf (" %d", &posCarta);
+				moverIteradorNumero (itPlayer1, posCarta);
+				}
+			jogarCarta (itPlayer1, baralhoMesa, posCarta);
+		} else {
+			printf ("Você não tem nenhuma jogada válida, uma carta será comprada!!\n");
+			comprarCartas (maoPlayer1, baralhoCompra, baralhoMesa, 1);
+		}
+		
+		if (quantidadeLista (maoPlayer1) == 0){
+			printf ("VOCÊ VENCEU!!\n");
+			acabou = 1;
+		}
 	}
-	if (!flag)
-		comprarCartas (maoPlayer1, baralhoCompra, baralhoMesa, 1);
 	
-	for (int i = 0; i < quantidadeLista (maoPlayer1); i++, proximoIterador (itPlayer1)){
-		printCarta (elementoLista(itPlayer1));
-	}
-	
-	printf ("\n");
-	
-	printCarta (ultimoLista(baralhoMesa));
-	
-	//addQueue (baralhoMesa, popStack(baralhoCompra));
 	
 	//for (int i = 0; i < 6; i++){
 	//	carta item = removerInicioLista(maoPlayer1);

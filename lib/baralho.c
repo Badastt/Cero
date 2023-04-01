@@ -64,22 +64,26 @@ void comprarCartas (lista *l, pilha *p, fila *f, int qtd){
 		for (int i = 0; i < qtd; i++){
 			if (emptyStack (p))
 				recolherCartas (p, f);
-			adicionarInicioLista (l, removerPilha (p));
+			adicionarFimLista (l, removerPilha (p));
 		}
 	} else
-		adicionarInicioLista (l, removerPilha (p));
+		adicionarFimLista (l, removerPilha (p));
 }
 
 void recolherCartas (pilha *p, fila *f){
-	while (quantidadeFila (f) != 1)
-		adicionarPilha (p, removeQueue(f));
+	while (quantidadeFila (f) != 1){
+		T carta = removeQueue(f);
+		if (carta.tipo == cartaCompra4 || carta.tipo == cartaMudaCor)
+			carta.cor = preto;
+		adicionarPilha (p, carta);
+	}
 	shuffle (p);
 }
 
 int verificaJogada (T cartaJogada, T cartaTopo){
     if (cartaJogada.cor == cartaTopo.cor)
 		return 1;
-	if (cartaJogada.num == cartaTopo.num)
+	if (cartaJogada.num == cartaTopo.num && cartaJogada.tipo == cartaNormal)
 		return 1;
 	if (cartaJogada.tipo == cartaTopo.tipo && cartaJogada.tipo != cartaNormal)
 		return 1;
@@ -88,8 +92,52 @@ int verificaJogada (T cartaJogada, T cartaTopo){
 	return 0;
 }
 
-void printCarta (T carta){
-	printf ("%d, %s, %s\n", carta.num, returnEnumCor(carta.cor), returnEnumTipo(carta.tipo));
+void printCarta (T carta, int num){
+	if (num){	
+		switch (carta.cor){
+		case vermelho:
+		printf ("%d - \033[1;41m%s   ",num, returnEnumCor(carta.cor));
+		break;
+		case verde:
+		printf ("%d - \033[1;42m%s      ",num, returnEnumCor(carta.cor));
+		break;
+		case azul:
+		printf ("%d - \033[1;44m%s       ",num, returnEnumCor(carta.cor));
+		break;
+		case amarelo:
+		printf ("%d - \033[1;43m%s    ",num, returnEnumCor(carta.cor));
+		break;
+		case preto:
+		printf ("%d - \033[1;45m%s      ",num, returnEnumCor(carta.cor));
+		break;
+		}
+		if(carta.tipo == cartaNormal)
+			printf("%d\033[1;0m\n", carta.num);
+		else
+			printf("%s\033[1;0m\n",returnEnumTipo(carta.tipo));
+	} else {
+		switch (carta.cor){
+		case vermelho:
+		printf ("    \033[1;41m%s   ", returnEnumCor(carta.cor));
+		break;
+		case verde:
+		printf ("    \033[1;42m%s      ", returnEnumCor(carta.cor));
+		break;
+		case azul:
+		printf ("    \033[1;44m%s       ", returnEnumCor(carta.cor));
+		break;
+		case amarelo:
+		printf ("    \033[1;43m%s    ", returnEnumCor(carta.cor));
+		break;
+		case preto:
+		printf ("    \033[1;45m%s      ", returnEnumCor(carta.cor));
+		break;
+		}
+		if(carta.tipo == cartaNormal)
+			printf("%d\033[1;0m\n", carta.num);
+		else
+			printf("%s\033[1;0m\n",returnEnumTipo(carta.tipo));
+	}
 }
 
 void primeiraCarta (pilha *p, fila *f){
@@ -99,5 +147,25 @@ void primeiraCarta (pilha *p, fila *f){
 		shuffle (p);
 		carta = removerPilha (p);
 	}
+	adicionarFila (f, carta);
+}
+
+void jogarCarta (iteradorLista *i, fila *f, int num){
+	moverIteradorNumero (i, num);
+	T carta = elementoLista(i);
+	if (carta.tipo == cartaCompra4 || carta.tipo == cartaMudaCor){
+		char cor;
+		printf ("Escolha a cor da carta, digite:\n\033[1;41mR  -  Vermelho\033[1;0m\n\033[1;42mG  -  Verde\033[1;0m\n\033[1;44mB  -  Azul\033[1;0m\n\033[1;43mY  -  Amarelo\033[1;0m\n");
+		scanf (" %c", &cor);
+		if (cor == 'R' || cor == 'r')
+			carta.cor = vermelho;
+		if (cor == 'G' || cor == 'g')
+			carta.cor = verde;
+		if (cor == 'B' || cor == 'b')
+			carta.cor = azul;
+		if (cor == 'Y' || cor == 'y')
+			carta.cor = amarelo;
+	}
+	retira (i);
 	adicionarFila (f, carta);
 }

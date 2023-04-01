@@ -50,6 +50,7 @@ typedef struct {
 typedef struct {
 	nodeLista *posicao;
 	lista *lista;
+	unsigned numero;
 } iteradorLista;
 
 

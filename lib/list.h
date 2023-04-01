@@ -20,10 +20,12 @@ iteradorLista *inicializarIterador (lista *);
 
 void adicionarAntes (lista *, iteradorLista *, T);
 void adicionarDepois (lista *, iteradorLista *, T);
-iteradorLista retira (lista *, iteradorLista *);
+void retira (iteradorLista *);
 
 void proximoIterador (iteradorLista *);
 void anteriorIterador (iteradorLista *);
+
+void moverIteradorNumero (iteradorLista *, int);
 
 T elementoLista (iteradorLista *);
 
