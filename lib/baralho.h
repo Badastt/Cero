@@ -28,5 +28,6 @@ void jogarCarta (iteradorLista *, fila *, int);
 void jogarCartaIA (iteradorLista *, fila *, int);
 
 void printCarta (T, int);
+void printCartaMesa (T);
 
 #endif

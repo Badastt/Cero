@@ -44,7 +44,9 @@ int main (int argc, char *argv[]){
 				break;
 		}
 		
-		printf ("A carta na mesa é a seguinte:\n");
+		printf ("A carta na mesa é a seguinte:\n\n");
+		printCartaMesa (ultimoLista(baralhoMesa));
+		printf ("\n");
 		printCarta (ultimoLista(baralhoMesa), 0);
 		printf ("\n");
 		
@@ -53,6 +55,8 @@ int main (int argc, char *argv[]){
 			printCarta (elementoLista(itPlayer1), i);
 			proximoIterador (itPlayer1);
 		}
+		
+		printf ("O seu oponente tem %d cartas!!\n", quantidadeLista (maoPlayer2));
 		
 		moverIteradorNumero (itPlayer1, 1);
 		if (flag){
