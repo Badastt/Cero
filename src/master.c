@@ -31,6 +31,8 @@ int main (int argc, char *argv[]){
 	int flag = 0;
 	int posCarta = 0;
 	
+	printf("\e[1;1H\e[2J");
+	
 	if (argv[1] == 0)
 	while (1 && !acabou){
 		flag = 0;
@@ -53,18 +55,22 @@ int main (int argc, char *argv[]){
 		moverIteradorNumero (itPlayer1, 1);
 		if (flag){
 			printf ("Você têm cartas válidas, qual será a sua jogada?? (Digite o número atrás da carta)\n\n");
-			scanf (" %d", &posCarta);
+			scanf (" %d%*c", &posCarta);
 			
 			moverIteradorNumero (itPlayer1, posCarta);
 			
 			while (!(verificaJogada(elementoLista(itPlayer1) ,ultimoLista(baralhoMesa)))){
 				printf ("O número digitado é inválido, tente novamente:\n\n");
-				scanf (" %d", &posCarta);
+				scanf (" %d%*c", &posCarta);
 				moverIteradorNumero (itPlayer1, posCarta);
 				}
 			jogarCarta (itPlayer1, baralhoMesa, posCarta);
+			printf("\e[1;1H\e[2J");
 		} else {
 			printf ("Você não tem nenhuma jogada válida, uma carta será comprada!!\n");
+			printf ("Pressione ENTER para confirmar\n");
+			getchar();
+			printf("\e[1;1H\e[2J");
 			comprarCartas (maoPlayer1, baralhoCompra, baralhoMesa, 1);
 		}
 		
