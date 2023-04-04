@@ -150,13 +150,14 @@ void primeiraCarta (pilha *p, fila *f){
 	adicionarFila (f, carta);
 }
 
-void jogarCarta (iteradorLista *i, fila *f, int num){
+int jogarCarta (iteradorLista *i, fila *f, int num){
 	moverIteradorNumero (i, num);
 	T carta = elementoLista(i);
+	int tipo = 0;
 	if (carta.tipo == cartaCompra4 || carta.tipo == cartaMudaCor){
 		char cor;
 		printf ("Escolha a cor da carta, digite:\n\033[1;41mR  -  Vermelho\033[1;0m\n\033[1;42mG  -  Verde\033[1;0m\n\033[1;44mB  -  Azul\033[1;0m\n\033[1;43mY  -  Amarelo\033[1;0m\n");
-		scanf (" %c", &cor);
+		scanf (" %c%*c", &cor);
 		if (cor == 'R' || cor == 'r')
 			carta.cor = vermelho;
 		if (cor == 'G' || cor == 'g')
@@ -166,14 +167,24 @@ void jogarCarta (iteradorLista *i, fila *f, int num){
 		if (cor == 'Y' || cor == 'y')
 			carta.cor = amarelo;
 	}
+	if (carta.tipo == cartaCompra2)
+		tipo = 1;
+	else if (carta.tipo == cartaCompra4)
+		tipo = 2;
+	else if (carta.tipo == cartaBloqueio)
+		tipo = 3;
+	else if (carta.tipo == cartaReverso)
+		tipo = 4;
 	retira (i);
 	adicionarFila (f, carta);
+	return tipo;
 }
 
-void jogarCartaIA (iteradorLista *i, fila *f, int num){
+int jogarCartaIA (iteradorLista *i, fila *f, int num){
 	moverIteradorNumero (i, num);
 	T carta = elementoLista(i);
 	int flag = 0;
+	int tipo = 0;
 	if (carta.tipo == cartaCompra4 || carta.tipo == cartaMudaCor){
 		moverIteradorNumero (i, 1);
 		for (int j = 0; j < quantidadeLista (i->lista); j++, proximoIterador (i)){
@@ -191,8 +202,17 @@ void jogarCartaIA (iteradorLista *i, fila *f, int num){
 		printf ("O seu adversário escolheu mudar a cor para %s\n", returnEnumCor(carta.cor));
 	}
 	moverIteradorNumero (i, num);
+	if (carta.tipo == cartaCompra2)
+		tipo = 1;
+	else if (carta.tipo == cartaCompra4)
+		tipo = 2;
+	else if (carta.tipo == cartaBloqueio)
+		tipo = 3;
+	else if (carta.tipo == cartaReverso)
+		tipo = 4;
 	retira (i);
 	adicionarFila (f, carta);
+	return tipo;
 }
 
 void printCartaMesa (T carta){
@@ -203,11 +223,11 @@ void printCartaMesa (T carta){
 			if (carta.tipo == cartaCompra2)
 				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m + 2 \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
 			if (carta.tipo == cartaCompra4)
-				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m  +4  \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
+				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m + 4 \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
 			if (carta.tipo == cartaBloqueio)
 				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m  $  \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
 			if (carta.tipo == cartaReverso)
-				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m < > \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
+				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m <-> \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
 			if (carta.tipo == cartaMudaCor)
 				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
 		break;
@@ -217,11 +237,11 @@ void printCartaMesa (T carta){
 			if (carta.tipo == cartaCompra2)
 				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m + 2 \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
 			if (carta.tipo == cartaCompra4)
-				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m +4  \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
+				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m + 4 \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
 			if (carta.tipo == cartaBloqueio)
-				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m  $  \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
+				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m  X  \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
 			if (carta.tipo == cartaReverso)
-				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m < > \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
+				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m <-> \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
 			if (carta.tipo == cartaMudaCor)
 				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
 		break;
@@ -231,11 +251,11 @@ void printCartaMesa (T carta){
 			if (carta.tipo == cartaCompra2)
 				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m + 2 \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
 			if (carta.tipo == cartaCompra4)
-				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m +4  \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
+				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m + 4 \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
 			if (carta.tipo == cartaBloqueio)
-				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m  $  \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
+				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m  X  \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
 			if (carta.tipo == cartaReverso)
-				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m < > \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
+				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m <-> \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
 			if (carta.tipo == cartaMudaCor)
 				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
 		break;
@@ -245,13 +265,15 @@ void printCartaMesa (T carta){
 			if (carta.tipo == cartaCompra2)
 				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m + 2 \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
 			if (carta.tipo == cartaCompra4)
-				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m +4  \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
+				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m + 4 \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
 			if (carta.tipo == cartaBloqueio)
-				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m  $  \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
+				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m  X  \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
 			if (carta.tipo == cartaReverso)
-				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m < > \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
+				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m <-> \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
 			if (carta.tipo == cartaMudaCor)
 				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
+		break;
+		default:
 		break;
 	}
 }
