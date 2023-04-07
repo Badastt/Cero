@@ -305,23 +305,23 @@ void printCarta (T carta, int num){
 	if (num){
 		switch (carta.cor){
 		case vermelho:
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED);
+		SetConsoleTextAttribute(hConsole, 79);
 		printf ("%d - %s   ",num, returnEnumCor(carta.cor));
 		break;
 		case verde:
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_GREEN);
+		SetConsoleTextAttribute(hConsole, 47);
 		printf ("%d - %s      ",num, returnEnumCor(carta.cor));
 		break;
 		case azul:
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_BLUE);
+		SetConsoleTextAttribute(hConsole, 31);
 		printf ("%d - %s       ",num, returnEnumCor(carta.cor));
 		break;
 		case amarelo:
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN);
+		SetConsoleTextAttribute(hConsole, 111);
 		printf ("%d - %s    ",num, returnEnumCor(carta.cor));
 		break;
 		case preto:
-		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED | BACKGROUND_BLUE);
+		SetConsoleTextAttribute(hConsole, 95);
 		printf ("%d - %s      ",num, returnEnumCor(carta.cor));
 		break;
 		}
@@ -332,23 +332,23 @@ void printCarta (T carta, int num){
 	} else {
 		switch (carta.cor){
 			case vermelho:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED);
+			SetConsoleTextAttribute(hConsole, 79);
 			printf ("%s   ", returnEnumCor(carta.cor));
 			break;
 			case verde:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_GREEN);
+			SetConsoleTextAttribute(hConsole, 47);
 			printf ("%s      ", returnEnumCor(carta.cor));
 			break;
 			case azul:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_BLUE);
+			SetConsoleTextAttribute(hConsole, 31);
 			printf ("%s       ", returnEnumCor(carta.cor));
 			break;
 			case amarelo:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN);
+			SetConsoleTextAttribute(hConsole, 111);
 			printf ("%s    ", returnEnumCor(carta.cor));
 			break;
 			case preto:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED | BACKGROUND_BLUE);
+			SetConsoleTextAttribute(hConsole, 95);
 			printf ("%s      ", returnEnumCor(carta.cor));
 			break;
 		}
@@ -364,9 +364,26 @@ int jogarCarta (iteradorLista *i, fila *f, int num){
 	moverIteradorNumero (i, num);
 	T carta = elementoLista(i);
 	int tipo = 0;
+	
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
+	
 	if (carta.tipo == cartaCompra4 || carta.tipo == cartaMudaCor){
 		char cor;
-		printf ("Escolha a cor da carta, digite:\nR  -  Vermelho\nG  -  Verde\nB  -  Azul\nY  -  Amarelo\n");
+		printf ("Escolha a cor da carta, digite:\n");
+		SetConsoleTextAttribute(hConsole, 79);
+		printf ("R  -  Vermelho\n");
+		SetConsoleTextAttribute(hConsole, 47);
+		printf ("G  -  Verde\n");
+		SetConsoleTextAttribute(hConsole, 31);
+		printf ("B  -  Azul\n");
+		SetConsoleTextAttribute(hConsole, 111);
+		printf ("Y  -  Amarelo\n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if (scanf (" %c%*c", &cor));
 		else
 			return -1;
@@ -401,7 +418,7 @@ void printCartaMesa (T carta){
 	saved_attributes = consoleInfo.wAttributes;
 	switch (carta.cor){
 		case vermelho:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED);
+			SetConsoleTextAttribute(hConsole, 79);
 			if (carta.tipo == cartaNormal)
 				printf ("     \n     \n  %d  \n     \n     \n", carta.num);
 			if (carta.tipo == cartaCompra2)
@@ -417,7 +434,7 @@ void printCartaMesa (T carta){
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 		break;
 		case verde:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_GREEN);
+			SetConsoleTextAttribute(hConsole, 47);
 			if (carta.tipo == cartaNormal)
 				printf ("     \n     \n  %d  \n     \n     \n", carta.num);
 			if (carta.tipo == cartaCompra2)
@@ -433,7 +450,7 @@ void printCartaMesa (T carta){
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 		break;
 		case azul:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_BLUE);
+			SetConsoleTextAttribute(hConsole, 31);
 			if (carta.tipo == cartaNormal)
 				printf ("     \n     \n  %d  \n     \n     \n", carta.num);
 			if (carta.tipo == cartaCompra2)
@@ -449,7 +466,7 @@ void printCartaMesa (T carta){
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 		break;
 		case amarelo:
-			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN);
+			SetConsoleTextAttribute(hConsole, 111);
 			if (carta.tipo == cartaNormal)
 				printf ("     \n     \n  %d  \n     \n     \n", carta.num);
 			if (carta.tipo == cartaCompra2)
