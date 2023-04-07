@@ -100,6 +100,7 @@ int verificaJogada (T cartaJogada, T cartaTopo){
 	return 0;
 }
 
+
 void primeiraCarta (pilha *p, fila *f){
 	T carta = removerPilha (p);
 	while (carta.cor == preto){
@@ -109,6 +110,7 @@ void primeiraCarta (pilha *p, fila *f){
 	}
 	adicionarFila (f, carta);
 }
+//A primeira carta é colocada na mesa caso seja uma carta com cor, caso a primeira carta seja uma carta de troca de cor. O baralho é embaralhado novamente e uma nova carta é escolhida do topo até que se encontre uma carta normal.
 
 int jogarCartaIA (iteradorLista *i, fila *f, int num){
 	moverIteradorNumero (i, num);
@@ -145,9 +147,10 @@ int jogarCartaIA (iteradorLista *i, fila *f, int num){
 }
 
 
-
+//Caso seja definido que o programa esteja sendo utilizado em máquina linux as seguintes especificações para impressao são escolhidas:
 #ifdef __unix__
-	
+//É utilizado o padrão de mudança de cor da impressão do linux "\codigo da cor do texto ou cor do fundo do texto[codigo da cor desejada", tal cor é recebida através da função qual informa a cor da carta.
+
 void printCarta (T carta, int num){
 	if (num){	
 		switch (carta.cor){
@@ -195,7 +198,8 @@ void printCarta (T carta, int num){
 			printf("%s\033[1;0m\n", returnEnumTipo(carta.tipo));
 	}	
 }
-	
+
+//A função joga carta pede ao usuário um input de uma carta válida para ser jogada e retorna o tipo da carta que foi jogada como um inteiro além de atualizar a carta do topo da pilha para	a carta jogada.
 int jogarCarta (iteradorLista *i, fila *f, int num){
 	moverIteradorNumero (i, num);
 	T carta = elementoLista(i);
@@ -227,7 +231,8 @@ int jogarCarta (iteradorLista *i, fila *f, int num){
 	adicionarFila (f, carta);
 	return tipo;
 }
-	
+
+//A carta que está no momento na mesa é imprimida para o jogador. É utilizado a mudança de cor do fundo em linux para imprimir um texto que forma uma carta.
 void printCartaMesa (T carta){
 	switch (carta.cor){
 		case vermelho:
@@ -291,10 +296,19 @@ void printCartaMesa (T carta){
 	}
 }
 
+void limpaTela() {
+	printf("\e[1;1H\e[2J");
+}
+
+
+//Caso o usuário esteja utilizando windows é necessário um padrão de impressão diferente. As funções utilizam a mesma lógica dos de em linux apenas modificando espaçamento e o que é necessário para troca de cor.
 #else
 #include <windows.h>
 
+//A biblioteca windows.h, nativa ao sistema windows é importada apensa caso esteja utilizando windows, visto que ela não existe em sistemas linux.
+
 void printCarta (T carta, int num){
+	//Declaração das variáveis quais alteram a cor do Prompt de Comando e quais salvam a cor dele antes de terem sido alteradas.
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
 	WORD saved_attributes;
@@ -360,6 +374,7 @@ void printCarta (T carta, int num){
 	SetConsoleTextAttribute(hConsole, saved_attributes);
 }
 
+//Utiliza-se da mesma lógica de Linux modificando a maneira da impressão com cores adequada ao sistema Windows.
 int jogarCarta (iteradorLista *i, fila *f, int num){
 	moverIteradorNumero (i, num);
 	T carta = elementoLista(i);
@@ -408,7 +423,8 @@ int jogarCarta (iteradorLista *i, fila *f, int num){
 	adicionarFila (f, carta);
 	return tipo;
 }
-	
+
+//Utiliza-se da mesma lógica de Linux modificando a maneira da impressão com cores adequada ao sistema Windows.
 void printCartaMesa (T carta){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
@@ -484,6 +500,10 @@ void printCartaMesa (T carta){
 		default:
 		break;
 	}
+}
+
+void limpaTela() {
+	system("cls");
 }
 
 

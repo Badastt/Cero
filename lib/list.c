@@ -1,12 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "list.h"
 #include "baralho.h"
 #include "types.h"
 
-//A lista é duplamente encadeada, com sentinela e circular
-
+//A lista é duplamente encadeada, com sentinela e circular.
 lista *inicializarLista(){
 	lista *l = (lista*)malloc(sizeof(lista));
 	nodeLista *n = (nodeLista*)malloc(sizeof(nodeLista));
@@ -18,6 +16,7 @@ lista *inicializarLista(){
 	return l;
 }
 
+
 void adicionarInicioLista (lista *l, T data){
 	nodeLista *n = (nodeLista*)malloc(sizeof(nodeLista));
 	n->item = data;
@@ -27,6 +26,7 @@ void adicionarInicioLista (lista *l, T data){
 	n->proximo->anterior = n;
 	l->quantidade++;
 }
+
 
 void adicionarFimLista (lista *l, T data){
 	nodeLista *n = (nodeLista*)malloc(sizeof(nodeLista));
@@ -38,6 +38,7 @@ void adicionarFimLista (lista *l, T data){
 	l->quantidade++;
 }
 
+
 T removerInicioLista (lista *l){
 	nodeLista *n = l->sentinela->proximo;
 	T data = n->item;
@@ -47,6 +48,7 @@ T removerInicioLista (lista *l){
 	l->quantidade--;
 	return data;
 }
+
 
 T removerFimLista (lista *l){
 	nodeLista *n = l->sentinela->anterior;
@@ -60,10 +62,12 @@ T removerFimLista (lista *l){
 	return data;
 }
 
+//Checa se lista está vazia.
 int listaVazia (lista *l){
 	return l->quantidade == 0;
 }
 
+//Remove completamente todos os componentes da lista e a destroi.
 void destroiLista (lista *l){
 	while (!listaVazia (l))
 		removerFimLista (l);
@@ -71,6 +75,7 @@ void destroiLista (lista *l){
 	free (l);
 }
 
+//Retorna quantidade de itens na lista.
 int quantidadeLista (lista *l){
 	return l->quantidade;
 }
@@ -101,6 +106,7 @@ void anteriorIterador (iteradorLista *i){
 	i->numero--;
 }
 
+//Move o iterador até uma posição fornecida pelo usuário.
 void moverIteradorNumero (iteradorLista *i, int num){
 	if (num <= 0 || num > quantidadeLista (i->lista))
 		return;
@@ -112,6 +118,7 @@ void moverIteradorNumero (iteradorLista *i, int num){
 			proximoIterador(i);
 }
 
+//Remove um elemento na posição em que o iterador está.
 void retira (iteradorLista *i){
 	nodeLista *n = i->posicao;
 	if (listaVazia (i->lista))

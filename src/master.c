@@ -35,7 +35,7 @@ int main (int argc, char *argv[]){
 	int posCarta = 0;
 	//--------------------------------------------------------------------------
 	
-	printf("\e[1;1H\e[2J");
+	limpaTela();
 	//Função para limpar a tela em ambiente UNIX.
 	
 	//Loop principal do CERO, ele só termina quando o jogador ou a IA possuir apenas uma carta.
@@ -101,13 +101,13 @@ int main (int argc, char *argv[]){
 				//Flag é uma variável usada nesse caso para saber o tipo da carta jogada, dessa forma, é possível fazer o oponente comprar cartas caso seja necessário.
 					
 				
-				printf("\e[1;1H\e[2J");
+				limpaTela();
 				//Limpa a tela.
 			} else {
 				printf ("Voce nao tem nenhuma jogada valida, uma carta sera comprada!!\n");
 				printf ("Pressione ENTER para confirmar\n");
 				getchar();
-				printf("\e[1;1H\e[2J");
+				limpaTela();
 				comprarCartas (maoPlayer1, baralhoCompra, baralhoMesa, 1);
 				//Caso o jogador não tenha nenhuma jogada válida, aguarda o jogador pressionar enter, isso é necessário para que não sejam compradas várias cartas em sequência sem ter um certo tempo para o jogador ver suas cartas.
 			}
@@ -128,7 +128,7 @@ int main (int argc, char *argv[]){
 				printf ("O seu oponente tem UMA carta!!\n");
 			printf ("Pressione ENTER para confirmar\n");
 				getchar();
-			printf("\e[1;1H\e[2J");
+			limpaTela();
 			flag = 0;
 		}
 		

@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "queue.h"
 #include "baralho.h"
 #include "types.h"
 
 //A fila foi feita utilizando utilizando memória não-sequencial. 
+
 
 fila *initializeQueue(){
 	fila *f = (fila*)malloc(sizeof(fila));
@@ -14,6 +14,7 @@ fila *initializeQueue(){
 	f->quantidade = 0;
 	return f;
 }
+
 
 void adicionarFila (fila *f, T data){
 	nodeFila *n = (nodeFila*)malloc(sizeof(nodeFila));
@@ -27,6 +28,7 @@ void adicionarFila (fila *f, T data){
 	}
 	f->quantidade++;
 }
+
 
 T removeFila (fila *f){
 	T item = CLEAR;
@@ -42,18 +44,19 @@ T removeFila (fila *f){
 	return item;
 }
 
+//Retorna o elemento que está no final da fila.
 T ultimoFila (fila *f){
 	return f->fim->item;
 }
-
+//Retorna quantidade de itens na fila.
 int quantidadeFila (fila *f){
 	return f->quantidade;
 }
-
+//Checa se fila está vazia.
 int filaVazia (fila *f){
 	return f->quantidade == 0;
 }
-
+//Destroi a fila.
 void destroiFila (fila *f){
 	while (!filaVazia (f))
 		removeFila (f);

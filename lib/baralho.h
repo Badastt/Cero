@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "stack.h"
 #include "list.h"
 #include "queue.h"
@@ -26,8 +25,8 @@ int verificaJogada (T, T);
 void primeiraCarta (pilha *, fila *);
 int jogarCarta (iteradorLista *, fila *, int);
 int jogarCartaIA (iteradorLista *, fila *, int);
-
 void printCarta (T, int);
 void printCartaMesa (T);
+void limpaTela ();
 
 #endif
