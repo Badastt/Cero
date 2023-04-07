@@ -362,7 +362,6 @@ void printCarta (T carta, int num){
 				printf("%s\n", returnEnumTipo(carta.tipo));
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 	}
-	SetConsoleTextAttribute(hConsole, saved_attributes);
 }
 
 int jogarCarta (iteradorLista *i, fila *f, int num){
