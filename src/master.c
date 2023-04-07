@@ -51,7 +51,7 @@ int main (int argc, char *argv[]){
 					break;
 			}
 			
-			printf ("A carta na mesa é a seguinte:\n\n");
+			printf ("A carta na mesa eh a seguinte:\n\n");
 			printCartaMesa (ultimoFila(baralhoMesa));
 			printf ("\n");
 			printCarta (ultimoFila(baralhoMesa), 0);
@@ -76,7 +76,7 @@ int main (int argc, char *argv[]){
 			
 			moverIteradorNumero (itPlayer1, 1);
 			if (flag){
-				printf ("Você têm cartas válidas, qual será a sua jogada?? (Digite o número atrás da carta)\n\n");
+				printf ("Voce tem cartas validas, qual sera a sua jogada?? (Digite o numero atras da carta)\n\n");
 				if (scanf (" %d%*c", &posCarta));
 				else
 					return -1;
@@ -84,7 +84,7 @@ int main (int argc, char *argv[]){
 				moverIteradorNumero (itPlayer1, posCarta);
 				
 				while (!(verificaJogada(elementoLista(itPlayer1) ,ultimoFila(baralhoMesa)))){
-					printf ("O número digitado é inválido, tente novamente:\n\n");
+					printf ("O numero digitado eh invalido, tente novamente:\n\n");
 					if (scanf (" %d%*c", &posCarta));
 					else
 						return -1;
@@ -104,7 +104,7 @@ int main (int argc, char *argv[]){
 				printf("\e[1;1H\e[2J");
 				//Limpa a tela.
 			} else {
-				printf ("Você não tem nenhuma jogada válida, uma carta será comprada!!\n");
+				printf ("Voce nao tem nenhuma jogada valida, uma carta sera comprada!!\n");
 				printf ("Pressione ENTER para confirmar\n");
 				getchar();
 				printf("\e[1;1H\e[2J");
@@ -114,13 +114,13 @@ int main (int argc, char *argv[]){
 		} else {
 			//Caso flag seja diferente de 0 nesse ponto, isso significa que a IA utilizou uma carta que impende a jogada do jogador.
 			if (flag == 1)
-				printf ("O seu adversário jogou uma carta +2, então você não pode jogar esse turno e comprou 2 cartas!!!\n");
+				printf ("O seu adversario jogou uma carta +2, entao voce nao pode jogar esse turno e comprou 2 cartas!!!\n");
 			else if (flag == 2)
-				printf ("O seu adversário jogou uma carta +4, então você não pode jogar esse turno e comprou 4 cartas!!!\n");
+				printf ("O seu adversario jogou uma carta +4, entao voce nao pode jogar esse turno e comprou 4 cartas!!!\n");
 			else if (flag == 3)
-				printf ("O seu adversário jogou uma carta bloqueio, então você não pode jogar esse turno!!!\n");
+				printf ("O seu adversario jogou uma carta bloqueio, entao voce nao pode jogar esse turno!!!\n");
 			else if (flag == 4)
-				printf ("O seu adversário jogou uma carta reverte, então você não pode jogar esse turno!!!\n");
+				printf ("O seu adversario jogou uma carta reverte, entao voce nao pode jogar esse turno!!!\n");
 			
 			if (quantidadeLista (maoPlayer2) > 1)
 				printf ("O seu oponente tem %d cartas!!\n", quantidadeLista (maoPlayer2));
@@ -134,7 +134,7 @@ int main (int argc, char *argv[]){
 		
 		if (quantidadeLista (maoPlayer1) == 0){
 			//Quando o jogador tiver 0 cartas, ele deve digitar CERO, sejam com letras em upper-case ou lower-case, caso contrário, o jogo não acabará e ele precisará comprar 2 cartas.
-			printf ("DIGA CERO OU NÃO GANHARÁ O JOGO\n");
+			printf ("DIGA CERO OU NAO GANHARA O JOGO\n");
 			char cero[5];
 			int j = 0;
 			while ((cero[j] = getchar()) != '\n' &&cero[j] != EOF)
@@ -144,7 +144,7 @@ int main (int argc, char *argv[]){
 			for(j = 0; j < 4; j++)
 				cero[j] = tolower(cero[j]);
 			if (strcmp(cero, "cero") == 0){
-				printf ("VOCÊ VENCEU!!\n");
+				printf ("VOCE VENCEU!!\n");
 				acabou = 1;
 				break;
 			} else {
@@ -162,7 +162,7 @@ int main (int argc, char *argv[]){
 				flag = verificaJogada (elementoLista(itPlayer2), ultimoFila(baralhoMesa));
 				//Caso a IA tenha uma carta válida, ela vai jogá-la. 
 				if (flag){
-					printf ("O seu adversário jogou a carta:\n");
+					printf ("O seu adversario jogou a carta:\n");
 					printCarta (elementoLista(itPlayer2), 0);
 					printf ("\n\n");
 					flag = jogarCartaIA (itPlayer2, baralhoMesa, i+1);
@@ -172,7 +172,7 @@ int main (int argc, char *argv[]){
 						comprarCartas (maoPlayer1, baralhoCompra, baralhoMesa, 4);
 					break;
 				} else if (!flag && i == quantidadeLista (maoPlayer2)){
-					printf ("O seu adversário não tinha nenhuma carta válida então comprou uma carta\n\n");
+					printf ("O seu adversario nao tinha nenhuma carta valida entao comprou uma carta\n\n");
 					comprarCartas (maoPlayer2, baralhoCompra, baralhoMesa, 1);
 					i++;
 				}
@@ -181,22 +181,22 @@ int main (int argc, char *argv[]){
 		} else {
 			//As mesmas regras se aplicam tanto para o jogador quanto para a IA, então ela pode ser impossibilitada de jogar.
 			if (flag == 1)
-				printf ("Você jogou uma carta +2, então o seu oponente não jogou nesse turno!!!\n");
+				printf ("Voce jogou uma carta +2, entao o seu oponente nao jogou nesse turno!!!\n");
 			else if (flag == 2)
-				printf ("Você jogou uma carta +4, então o seu oponente não jogou nesse turno!!!\n");
+				printf ("Voce jogou uma carta +4, entao o seu oponente nao jogou nesse turno!!!\n");
 			else if (flag == 3)
-				printf ("Você jogou uma carta bloqueio, então o seu oponente não jogou nesse turno!!!\n");
+				printf ("Voce jogou uma carta bloqueio, entao o seu oponente nao jogou nesse turno!!!\n");
 			else if (flag == 4)
-				printf ("Você jogou uma carta reverte, então o turno voltou para você!!!\n");
+				printf ("Voce jogou uma carta reverte, entao o turno voltou para voce!!!\n");
 			flag = 0;
 		}
 		
 		if (quantidadeLista (maoPlayer2) == 0){
 			if (rand() % 2 == 1){
-				printf ("VOCÊ PERDEU\n");
+				printf ("VOCE PERDEU\n");
 				acabou = 1;
 			} else {
-				printf ("SEU ADVERSÁRIO ESQUECEU DE FALAR CERO!!!!\n");
+				printf ("SEU ADVERSARIO ESQUECEU DE FALAR CERO!!!!\n");
 				comprarCartas (maoPlayer2, baralhoCompra, baralhoMesa, 2);
 			}
 		}

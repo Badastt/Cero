@@ -128,7 +128,7 @@ int jogarCartaIA (iteradorLista *i, fila *f, int num){
 		
 		if (!flag)
 			carta.cor = rand()%4;
-		printf ("O seu adversário escolheu mudar a cor para %s!!\n", returnEnumCor(carta.cor));
+		printf ("O seu adversario escolheu mudar a cor para %s!!\n", returnEnumCor(carta.cor));
 	}
 	moverIteradorNumero (i, num);
 	if (carta.tipo == cartaCompra2)
@@ -146,8 +146,7 @@ int jogarCartaIA (iteradorLista *i, fila *f, int num){
 
 
 
-#ifdef __unix__         
-#define OS 0
+#ifdef __unix__
 	
 void printCarta (T carta, int num){
 	if (num){	
@@ -293,8 +292,8 @@ void printCartaMesa (T carta){
 }
 
 #else
-#define OS 1
 #include <windows.h>
+
 void printCarta (T carta, int num){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
@@ -302,7 +301,6 @@ void printCarta (T carta, int num){
 
 	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
 	saved_attributes = consoleInfo.wAttributes;
-
 
 	if (num){
 		switch (carta.cor){
@@ -335,23 +333,23 @@ void printCarta (T carta, int num){
 		switch (carta.cor){
 			case vermelho:
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED);
-			printf ("    %s   ", returnEnumCor(carta.cor));
+			printf ("%s   ", returnEnumCor(carta.cor));
 			break;
 			case verde:
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_GREEN);
-			printf ("    %s      ", returnEnumCor(carta.cor));
+			printf ("%s      ", returnEnumCor(carta.cor));
 			break;
 			case azul:
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_BLUE);
-			printf ("    %s       ", returnEnumCor(carta.cor));
+			printf ("%s       ", returnEnumCor(carta.cor));
 			break;
 			case amarelo:
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN);
-			printf ("    %s    ", returnEnumCor(carta.cor));
+			printf ("%s    ", returnEnumCor(carta.cor));
 			break;
 			case preto:
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED | BACKGROUND_BLUE);
-			printf ("    %s      ", returnEnumCor(carta.cor));
+			printf ("%s      ", returnEnumCor(carta.cor));
 			break;
 		}
 			if(carta.tipo == cartaNormal)
@@ -368,7 +366,7 @@ int jogarCarta (iteradorLista *i, fila *f, int num){
 	int tipo = 0;
 	if (carta.tipo == cartaCompra4 || carta.tipo == cartaMudaCor){
 		char cor;
-		printf ("Escolha a cor da carta, digite:\n\033[1;41mR  -  Vermelho\033[1;0m\n\033[1;42mG  -  Verde\033[1;0m\n\033[1;44mB  -  Azul\033[1;0m\n\033[1;43mY  -  Amarelo\033[1;0m\n");
+		printf ("Escolha a cor da carta, digite:\nR  -  Vermelho\nG  -  Verde\nB  -  Azul\nY  -  Amarelo\n");
 		if (scanf (" %c%*c", &cor));
 		else
 			return -1;
@@ -395,62 +393,76 @@ int jogarCarta (iteradorLista *i, fila *f, int num){
 }
 	
 void printCartaMesa (T carta){
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
 	switch (carta.cor){
 		case vermelho:
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED);
 			if (carta.tipo == cartaNormal)
-				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m  %d  \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n", carta.num);
+				printf ("     \n     \n  %d  \n     \n     \n", carta.num);
 			if (carta.tipo == cartaCompra2)
-				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m + 2 \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
+				printf ("     \n     \n + 2 \n     \n     \n");
 			if (carta.tipo == cartaCompra4)
-				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m + 4 \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
+				printf ("     \n     \n + 4 \n     \n     \n");
 			if (carta.tipo == cartaBloqueio)
-				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m  $  \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
+				printf ("     \n     \n  X  \n     \n     \n");
 			if (carta.tipo == cartaReverso)
-				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m <-> \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
+				printf ("     \n     \n <-> \n     \n     \n");
 			if (carta.tipo == cartaMudaCor)
-				printf ("\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n\033[1;41m     \033[1;0\n");
+				printf ("     \n     \n     \n     \n     \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
 		break;
 		case verde:
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_GREEN);
 			if (carta.tipo == cartaNormal)
-				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m  %d  \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n", carta.num);
+				printf ("     \n     \n  %d  \n     \n     \n", carta.num);
 			if (carta.tipo == cartaCompra2)
-				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m + 2 \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
+				printf ("     \n     \n + 2 \n     \n     \n");
 			if (carta.tipo == cartaCompra4)
-				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m + 4 \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
+				printf ("     \n     \n + 4 \n     \n     \n");
 			if (carta.tipo == cartaBloqueio)
-				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m  X  \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
+				printf ("     \n     \n  X  \n     \n     \n");
 			if (carta.tipo == cartaReverso)
-				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m <-> \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
+				printf ("     \n     \n <-> \n     \n     \n");
 			if (carta.tipo == cartaMudaCor)
-				printf ("\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n\033[1;42m     \033[1;0\n");
+				printf ("     \n     \n     \n     \n     \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
 		break;
 		case azul:
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_BLUE);
 			if (carta.tipo == cartaNormal)
-				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m  %d  \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n", carta.num);
+				printf ("     \n     \n  %d  \n     \n     \n", carta.num);
 			if (carta.tipo == cartaCompra2)
-				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m + 2 \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
+				printf ("     \n     \n + 2 \n     \n     \n");
 			if (carta.tipo == cartaCompra4)
-				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m + 4 \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
+				printf ("     \n     \n + 4 \n     \n     \n");
 			if (carta.tipo == cartaBloqueio)
-				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m  X  \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
+				printf ("     \n     \n  X  \n     \n     \n");
 			if (carta.tipo == cartaReverso)
-				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m <-> \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
+				printf ("     \n     \n <-> \n     \n     \n");
 			if (carta.tipo == cartaMudaCor)
-				printf ("\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n\033[1;44m     \033[1;0\n");
+				printf ("     \n     \n     \n     \n     \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
 		break;
 		case amarelo:
+			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN);
 			if (carta.tipo == cartaNormal)
-				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m  %d  \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n", carta.num);
+				printf ("     \n     \n  %d  \n     \n     \n", carta.num);
 			if (carta.tipo == cartaCompra2)
-				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m + 2 \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
+				printf ("     \n     \n + 2 \n     \n     \n");
 			if (carta.tipo == cartaCompra4)
-				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m + 4 \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
+				printf ("     \n     \n + 4 \n     \n     \n");
 			if (carta.tipo == cartaBloqueio)
-				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m  X  \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
+				printf ("     \n     \n  X  \n     \n     \n");
 			if (carta.tipo == cartaReverso)
-				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m <-> \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
+				printf ("     \n     \n <-> \n     \n     \n");
 			if (carta.tipo == cartaMudaCor)
-				printf ("\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n\033[1;43m     \033[1;0\n");
+				printf ("     \n     \n     \n     \n     \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
 		break;
 		default:
 		break;
