@@ -157,7 +157,9 @@ int jogarCarta (iteradorLista *i, fila *f, int num){
 	if (carta.tipo == cartaCompra4 || carta.tipo == cartaMudaCor){
 		char cor;
 		printf ("Escolha a cor da carta, digite:\n\033[1;41mR  -  Vermelho\033[1;0m\n\033[1;42mG  -  Verde\033[1;0m\n\033[1;44mB  -  Azul\033[1;0m\n\033[1;43mY  -  Amarelo\033[1;0m\n");
-		scanf (" %c%*c", &cor);
+		if (scanf (" %c%*c", &cor));
+		else
+			return -1;
 		if (cor == 'R' || cor == 'r')
 			carta.cor = vermelho;
 		if (cor == 'G' || cor == 'g')
@@ -188,18 +190,17 @@ int jogarCartaIA (iteradorLista *i, fila *f, int num){
 	if (carta.tipo == cartaCompra4 || carta.tipo == cartaMudaCor){
 		moverIteradorNumero (i, 1);
 		for (int j = 0; j < quantidadeLista (i->lista); j++, proximoIterador (i)){
-			flag = verificaJogada (elementoLista(i), ultimoLista(f));
-			if (flag){
-				T verificaCarta = elementoLista(i);
-				if (verificaCarta.cor != preto)
-					carta.cor = verificaCarta.cor;
-				else
-					flag = 0;	
+			T verificaCarta = elementoLista(i);
+			if (verificaCarta.cor != preto){
+				flag = 1;
+				carta.cor = verificaCarta.cor;
+				j = quantidadeLista (i->lista);
 			}
 		}
+		
 		if (!flag)
 			carta.cor = rand()%4;
-		printf ("O seu adversário escolheu mudar a cor para %s\n", returnEnumCor(carta.cor));
+		printf ("O seu adversário escolheu mudar a cor para %s!!\n", returnEnumCor(carta.cor));
 	}
 	moverIteradorNumero (i, num);
 	if (carta.tipo == cartaCompra2)
@@ -276,4 +277,111 @@ void printCartaMesa (T carta){
 		default:
 		break;
 	}
+}
+
+char *caminhoCarta (T carta){
+	switch (carta.cor){
+		case vermelho:
+		switch (carta.tipo){
+			case cartaNormal:
+				switch (carta.num){
+					case 0: return "data/0_VERMELHO.png";
+					case 1: return "data/1_VERMELHO.png";
+					case 2: return "data/2_VERMELHO.png";
+					case 3: return "data/3_VERMELHO.png";
+					case 4: return "data/4_VERMELHO.png";
+					case 5: return "data/5_VERMELHO.png";
+					case 6: return "data/6_VERMELHO.png";
+					case 7: return "data/7_VERMELHO.png";
+					case 8: return "data/8_VERMELHO.png";
+					case 9: return "data/9_VERMELHO.png";
+				}
+			case cartaBloqueio: return "data/BLOQUEIO_VERMELHO.png";
+			case cartaReverso: return "data/REVERSO_VERMELHO.png";
+			case cartaCompra2: return "data/+2_VERMELHO.png";
+			case cartaMudaCor: return "data/MUDACOR_VERMELHO.png";
+			case cartaCompra4: return "data/+4_VERMELHO.png";
+			default: return "ERRO";
+		}
+		case amarelo:
+		switch (carta.tipo){
+			case cartaNormal:
+				switch (carta.num){
+					case 0: return "data/0_AMARELO.png";
+					case 1: return "data/1_AMARELO.png";
+					case 2: return "data/2_AMARELO.png";
+					case 3: return "data/3_AMARELO.png";
+					case 4: return "data/4_AMARELO.png";
+					case 5: return "data/5_AMARELO.png";
+					case 6: return "data/6_AMARELO.png";
+					case 7: return "data/7_AMARELO.png";
+					case 8: return "data/8_AMARELO.png";
+					case 9: return "data/9_AMARELO.png";
+				}
+			case cartaBloqueio: return "data/BLOQUEIO_AMARELO.png";
+			case cartaReverso: return "data/REVERSO_AMARELO.png";
+			case cartaCompra2: return "data/+2_AMARELO.png";
+			case cartaMudaCor: return "data/MUDACOR_AMARELO.png";
+			case cartaCompra4: return "data/+4_AMARELO.png";
+			default: return "ERRO";
+		}
+		case verde:
+		switch (carta.tipo){
+			case cartaNormal:
+				switch (carta.num){
+					case 0: return "data/0_VERDE.png";
+					case 1: return "data/1_VERDE.png";
+					case 2: return "data/2_VERDE.png";
+					case 3: return "data/3_VERDE.png";
+					case 4: return "data/4_VERDE.png";
+					case 5: return "data/5_VERDE.png";
+					case 6: return "data/6_VERDE.png";
+					case 7: return "data/7_VERDE.png";
+					case 8: return "data/8_VERDE.png";
+					case 9: return "data/9_VERDE.png";
+				}
+			case cartaBloqueio: return "data/BLOQUEIO_VERDE.png";
+			case cartaReverso: return "data/REVERSO_VERDE.png";
+			case cartaCompra2: return "data/+2_VERDE.png";
+			case cartaMudaCor: return "data/MUDACOR_VERDE.png";
+			case cartaCompra4: return "data/+4_VERDE.png";
+			default: return "ERRO";
+		}
+		case azul:
+		switch (carta.tipo){
+			case cartaNormal:
+				switch (carta.num){
+					case 0: return "data/0_AZUL.png";
+					case 1: return "data/1_AZUL.png";
+					case 2: return "data/2_AZUL.png";
+					case 3: return "data/3_AZUL.png";
+					case 4: return "data/4_AZUL.png";
+					case 5: return "data/5_AZUL.png";
+					case 6: return "data/6_AZUL.png";
+					case 7: return "data/7_AZUL.png";
+					case 8: return "data/8_AZUL.png";
+					case 9: return "data/9_AZUL.png";
+				}
+			case cartaBloqueio: return "data/BLOQUEIO_AZUL.png";
+			case cartaReverso: return "data/REVERSO_AZUL.png";
+			case cartaCompra2: return "data/+2_AZUL.png";
+			case cartaMudaCor: return "data/MUDACOR_AZUL.png";
+			case cartaCompra4: return "data/+4_AZUL.png";
+			default: return "ERRO";
+		}
+		case preto:
+		switch (carta.tipo){
+			case cartaMudaCor: return "data/MUDACOR.png";
+			case cartaCompra4: return "data/+4.png";
+			default: return "ERRO";
+		}
+		default: return "ERRO";
+	}
+}
+
+botao *inicializaBotao (iteradorLista *iterador, fila *fila){
+	botao *b = (botao*)malloc(sizeof(botao));
+	b->iterador = iterador;
+	b->fila = fila;
+	return b;
 }

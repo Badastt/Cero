@@ -39,7 +39,7 @@ int emptyStack (pilha *s){
 }
 
 int fullStack (pilha *s){
-	if (s->top == MAX-1)
+	if (s->top == MAXLOCAL-1)
 		return 1;
 	return 0;
 }

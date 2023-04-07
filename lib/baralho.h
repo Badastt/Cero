@@ -10,7 +10,7 @@
 #include "types.h"
 
 #define NUM_CARTAS 108
-#define MAX NUM_CARTAS
+#define MAXLOCAL NUM_CARTAS
 
 #define ERROR (carta){-1, -1, -1};
 #define CLEAR (carta){0, -1, -1};
@@ -29,5 +29,8 @@ int jogarCartaIA (iteradorLista *, fila *, int);
 
 void printCarta (T, int);
 void printCartaMesa (T);
+
+char *caminhoCarta (T);
+botao *inicializaBotao (iteradorLista *, fila *);
 
 #endif
