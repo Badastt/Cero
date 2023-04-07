@@ -53,9 +53,4 @@ typedef struct {
 	unsigned numero;
 } iteradorLista;
 
-typedef struct {
-	iteradorLista *iterador;
-	fila *fila;
-} botao;
-
 #endif

@@ -10,8 +10,8 @@
 pilha *inicializarPilha(int);
 void adicionarPilha (pilha *, T);
 T removerPilha (pilha *);
-int emptyStack (pilha *);
-int fullStack (pilha *);
+int pilhaVazia (pilha *);
+int pilhaCheia (pilha *);
 void destroiPilha (pilha *);
 
 #endif

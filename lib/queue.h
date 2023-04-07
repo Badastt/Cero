@@ -9,10 +9,10 @@
 
 fila *initializeQueue();
 void adicionarFila (fila *, T);
-T removeQueue (fila *);
-T ultimoLista (fila *);
+T removeFila (fila *);
+T ultimoFila (fila *);
 int quantidadeFila (fila *f);
-int emptyQueue (fila *);
-void destroyQueue (fila *);
+int filaVazia (fila *);
+void destroiFila (fila *);
 
 #endif

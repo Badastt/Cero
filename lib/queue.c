@@ -5,6 +5,8 @@
 #include "baralho.h"
 #include "types.h"
 
+//A fila foi feita utilizando utilizando memória não-sequencial. 
+
 fila *initializeQueue(){
 	fila *f = (fila*)malloc(sizeof(fila));
 	f->inicio = NULL;
@@ -16,7 +18,7 @@ void adicionarFila (fila *f, T data){
 	nodeFila *n = (nodeFila*)malloc(sizeof(nodeFila));
 	n->item = data;
 	n->proximo = NULL;
-	if (emptyQueue(f)){
+	if (filaVazia(f)){
 		f->inicio = f->fim = n;
 	} else {
 		f->fim->proximo = n;
@@ -25,9 +27,9 @@ void adicionarFila (fila *f, T data){
 	f->quantidade++;
 }
 
-T removeQueue (fila *f){
+T removeFila (fila *f){
 	T item = CLEAR;
-	if (!emptyQueue (f)){
+	if (!filaVazia (f)){
 		nodeFila *n = f->inicio;
 		f->inicio = f->inicio->proximo;
 		item = n->item;
@@ -39,7 +41,7 @@ T removeQueue (fila *f){
 	return item;
 }
 
-T ultimoLista (fila *f){
+T ultimoFila (fila *f){
 	return f->fim->item;
 }
 
@@ -47,12 +49,12 @@ int quantidadeFila (fila *f){
 	return f->quantidade;
 }
 
-int emptyQueue (fila *f){
+int filaVazia (fila *f){
 	return f->quantidade == 0;
 }
 
-void destroyQueue (fila *f){
-	while (!emptyQueue (f))
-		removeQueue (f);
+void destroiFila (fila *f){
+	while (!filaVazia (f))
+		removeFila (f);
 	free (f);
 }

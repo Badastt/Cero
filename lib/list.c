@@ -5,6 +5,8 @@
 #include "baralho.h"
 #include "types.h"
 
+//A lista é duplamente encadeada, com sentinela e circular
+
 lista *inicializarLista(){
 	lista *l = (lista*)malloc(sizeof(lista));
 	nodeLista *n = (nodeLista*)malloc(sizeof(nodeLista));
@@ -48,7 +50,7 @@ T removerInicioLista (lista *l){
 
 T removerFimLista (lista *l){
 	nodeLista *n = l->sentinela->anterior;
-	if (vaziaLista (l))
+	if (listaVazia (l))
 		return ERROR;
 	T data = n->item;
 	l->sentinela->anterior = l->sentinela->anterior->anterior;
@@ -58,12 +60,12 @@ T removerFimLista (lista *l){
 	return data;
 }
 
-int vaziaLista (lista *l){
+int listaVazia (lista *l){
 	return l->quantidade == 0;
 }
 
 void destroiLista (lista *l){
-	while (!vaziaLista (l))
+	while (!listaVazia (l))
 		removerFimLista (l);
 	free (l->sentinela);
 	free (l);
@@ -80,9 +82,6 @@ iteradorLista *inicializarIterador (lista *l){
 	i->numero = 0;
 	return i;
 }
-
-
-void adicionarAntes (lista *l, iteradorLista *i, T data);
 
 void proximoIterador (iteradorLista *i){
 	i->posicao = i->posicao->proximo;
@@ -115,7 +114,7 @@ void moverIteradorNumero (iteradorLista *i, int num){
 
 void retira (iteradorLista *i){
 	nodeLista *n = i->posicao;
-	if (vaziaLista (i->lista))
+	if (listaVazia (i->lista))
 		return;
 	i->posicao->anterior->proximo = i->posicao->proximo;
 	i->posicao->proximo->anterior = i->posicao->anterior;

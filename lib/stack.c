@@ -5,6 +5,8 @@
 #include "baralho.h"
 #include "types.h"
 
+//A pilha é criada utilizando memória sequência, isso permite abordar ela como um vetor
+
 pilha *inicializarPilha(int size){
 	pilha *s = (pilha*)malloc(sizeof(pilha));
 	T *t = (T*)malloc(sizeof(T)*size);
@@ -15,7 +17,7 @@ pilha *inicializarPilha(int size){
 }
 
 void adicionarPilha (pilha *s, T element){
-	if (fullStack (s)){
+	if (pilhaCheia (s)){
 		return;
 	}
 	s->top++;
@@ -23,7 +25,7 @@ void adicionarPilha (pilha *s, T element){
 }
 
 T removerPilha (pilha *s){
-	if (emptyStack (s)){
+	if (pilhaVazia (s)){
 		return ERROR;
 	}
 	T element = s->itens[s->top];
@@ -32,13 +34,13 @@ T removerPilha (pilha *s){
 	return element;
 }
 
-int emptyStack (pilha *s){
+int pilhaVazia (pilha *s){
 	if (s->top == -1)
 		return 1;
 	return 0;
 }
 
-int fullStack (pilha *s){
+int pilhaCheia (pilha *s){
 	if (s->top == MAXLOCAL-1)
 		return 1;
 	return 0;

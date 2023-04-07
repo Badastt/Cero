@@ -30,7 +30,4 @@ int jogarCartaIA (iteradorLista *, fila *, int);
 void printCarta (T, int);
 void printCartaMesa (T);
 
-char *caminhoCarta (T);
-botao *inicializaBotao (iteradorLista *, fila *);
-
 #endif
