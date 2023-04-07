@@ -11,6 +11,7 @@ fila *initializeQueue(){
 	fila *f = (fila*)malloc(sizeof(fila));
 	f->inicio = NULL;
 	f->fim = NULL;
+	f->quantidade = 0;
 	return f;
 }
 
