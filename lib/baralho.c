@@ -212,12 +212,14 @@ int jogarCarta (iteradorLista *i, fila *f, int num){
 			return -1;
 		if (cor == 'R' || cor == 'r')
 			carta.cor = vermelho;
-		if (cor == 'G' || cor == 'g')
+		else if (cor == 'G' || cor == 'g')
 			carta.cor = verde;
-		if (cor == 'B' || cor == 'b')
+		else if (cor == 'B' || cor == 'b')
 			carta.cor = azul;
-		if (cor == 'Y' || cor == 'y')
+		else if (cor == 'Y' || cor == 'y')
 			carta.cor = amarelo;
+		else
+			carta.cor = rand() % 4;
 	}
 	if (carta.tipo == cartaCompra2)
 		tipo = 1;
@@ -404,12 +406,14 @@ int jogarCarta (iteradorLista *i, fila *f, int num){
 			return -1;
 		if (cor == 'R' || cor == 'r')
 			carta.cor = vermelho;
-		if (cor == 'G' || cor == 'g')
+		else if (cor == 'G' || cor == 'g')
 			carta.cor = verde;
-		if (cor == 'B' || cor == 'b')
+		else if (cor == 'B' || cor == 'b')
 			carta.cor = azul;
-		if (cor == 'Y' || cor == 'y')
+		else if (cor == 'Y' || cor == 'y')
 			carta.cor = amarelo;
+		else
+			carta.cor = rand() % 4;
 	}
 	if (carta.tipo == cartaCompra2)
 		tipo = 1;
