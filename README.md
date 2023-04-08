@@ -10,7 +10,7 @@ As estruturas de dados citadas foram usadas nas seguintes aplicações:
 ### CARTAS
 
 O jogo é composto por 108 cartas, 19 cartas normais, 2 cartas bloqueio, 2 cartas reverso, 2 cartas compra dois (2), das cores vermelho, amarelo, verde e azul, 4 cartas muda cor e 4 cartas compra quatro (4) da cor preta, seguindo a imagem de referência a seguir:
-!(https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/UNO_cards_deck.svg/1024px-UNO_cards_deck.svg.png)
+![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/UNO_cards_deck.svg/1024px-UNO_cards_deck.svg.png)
 Cada carta possui ou um número, ou um símbolo, ou uma descrição e uma cor (vermelho, amarelo, verde, azul e preto) que define quando as mesmas podem ser jogadas seguindo o tópico "COMO JOGAR" que será tratado adiante.
 As cartas são subdivididas nos seguintes tipos, cada uma com a sua função:
 - CartaNormal: representada por um número (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) e por uma cor (menos o preto);
@@ -25,7 +25,7 @@ As cartas são subdivididas nos seguintes tipos, cada uma com a sua função:
 
 Inicialmente o jogador e a IA (Inteligência Artificial) recebem 6 cartas e uma carta é retirada da pilha de cartas da mesa e colocada em cima da mesa, com exceção das cartas muda cor e compra 4. Será disponibilizado para o jogador as cartas precedidas de um número (seguindo a ordem da lista de cartas na mão dele), a cor escrita por extenso (vermelho, amarelo, verde, azul ou preto) e depois o símbolo ou a descrição da carta. Cada carta será apresentada em uma linha com o *background* colorido seguindo a cor da carta (menos para a carta preta que tem o seu *background* definido como roxo).
 
-!(data/image_01.png)
+![alt text](data/image_01.png)
     
 Para jogar é necessário que o jogador digite o número precedido pela carta, porém isso apenas acontecerá se o mesmo possuir cartas válidas em sua mão, caso não tenha será necessário apertar "ENTER" para comprar uma carta, o mesmo ocorre com a IA. Para ter ao menos uma carta válida é necessário que o jogador possua uma carta que cumpra pelo menos um desses requisitos:
 - Uma carta que possui a mesma cor da última carta jogada;
